@@ -1,10 +1,8 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
 
-const getAI = () => new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
-
 export const generateRecipe = async (ingredients: string) => {
-  const ai = getAI();
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   const response = await ai.models.generateContent({
     model: 'gemini-3-flash-preview',
     contents: `다음 재료들을 활용한 맛있는 요리 레시피를 추천해주세요: ${ingredients}. 
@@ -27,7 +25,7 @@ export const generateRecipe = async (ingredients: string) => {
 };
 
 export const generateFoodImage = async (dishName: string) => {
-  const ai = getAI();
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   const response = await ai.models.generateContent({
     model: 'gemini-2.5-flash-image',
     contents: {
@@ -51,7 +49,7 @@ export const generateFoodImage = async (dishName: string) => {
 };
 
 export const editFoodImage = async (base64Image: string, editPrompt: string) => {
-  const ai = getAI();
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   // Remove data:image/png;base64, prefix
   const imageData = base64Image.split(',')[1];
   
